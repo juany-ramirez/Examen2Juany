@@ -12,6 +12,7 @@ private:
 public:
 	Node();
 	Node(Person persona);
+	Node(Person persona, Node* next);
 	~Node();
 	Person getValue();
 	Node* getNext();

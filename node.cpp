@@ -31,7 +31,7 @@ void Node::setValue(Person persona){
 }
 
 void Node::setNext(Node* next){
-	this-> next= next;
+	this-> next = next;
 }
 
 bool Node::hasNext(){
