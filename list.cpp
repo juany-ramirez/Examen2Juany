@@ -7,7 +7,7 @@ using namespace std;
 
 
 List::List(){
-
+	head = NULL;
 }
 
 List::List(Person persona){
@@ -19,7 +19,7 @@ List::~List(){
 }
 
 void List::setHead(Person persona){
-	this->head = head;
+	this->head = new Node(persona);
 }
 
 Person List::getHead(){
@@ -27,23 +27,23 @@ Person List::getHead(){
 }
 
 void List::insert(int posicion, Person persona){
-    int cont=0;
+    
+    /*int cont=0;
 	Node* temp=head;
-	do{
+	while (temp->hasNext()){
 		if(posicion==0 && cont==0 && temp==NULL){
-			head=new Node(persona);
-			temp=head;
+			setHead(persona);
 		}else if(posicion==0 && cont==0){
-			temp->setNext(head);	
-			head=temp;
-			
+			Node* temp2->setNext(head);	
+			setHead(persona);
 		}else if ((cont+1)==posicion){
-			Node* temp2=temp->getNext();
-			temp->setNext(new Node(persona,temp2));	
+			//Node* temp2=temp->getNext();
+			//temp->setNext(new Node(persona,temp2));	
 		}
 		cont++;
 		temp=temp->getNext();
-	} while (temp!=NULL);
+	}
+	*/
 	
 }
 
@@ -51,22 +51,34 @@ Person List::at(int posicion){
 	int cont=0;
 	Node* temp=head;
 	Node* retorno;
-	do{
+	while (temp->hasNext()){
 		if(posicion==cont){
 			retorno=temp;
 		}
 		cont++;
 		temp=temp->getNext();
-	} while (temp!=NULL);
+	}
 	return retorno->getValue();
 }
 
 void List::erase(int posicion){
-
+	if(posicion >=0 && posicion< this-> size()){
+		int actual;
+		Node* temp = head;
+		while(actual < posicion){
+			temp = temp -> getNext();
+			actual++;
+		}
+		temp -> setNext(temp -> getNext() ? temp -> getNext() ->getNext() : NULL);
+	}
 }
 
 void List::concat(List* lista){
-
+	Node* temp = head;
+	while(temp->hasNext()){
+		temp = temp-> getNext();
+	}
+	temp -> setNext(lista->first());
 }
 
 int List::find(Person persona){
@@ -81,7 +93,7 @@ int List::find(Person persona){
 }
 
 int List::size(){
-	int i;
+	int i=0;
 	while(head->hasNext()){
     	i++;
     }
@@ -89,16 +101,18 @@ int List::size(){
 }
 
 void List::push_back(Person persona){
+	if(!head){
+		this-> setHead(persona);
+	}
     Node* nuevo = head;
-    nuevo -> setNext(NULL);
-    if(!nuevo->hasNext()){
-    	nuevo->setValue(persona);
-    }else{
-    	while(nuevo->hasNext()){
-    		nuevo = nuevo-> getNext();
-    	}
-    	nuevo -> setNext(new Node(persona));
-    }
+
+	while(nuevo->hasNext()){
+		//throw "m";
+		nuevo = nuevo-> getNext();
+	}
+	//throw "m";
+	nuevo -> setNext(new Node(persona));
+
 }
 
 Node* List::first(){

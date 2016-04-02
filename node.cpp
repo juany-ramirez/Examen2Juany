@@ -7,11 +7,11 @@ using namespace std;
 
 
 Node::Node(){
-
+	this -> next = NULL;
 }
 
-Node::Node(Person persona): persona(persona){
-	this -> setNext(NULL);
+Node::Node(Person persona): persona(persona), next(NULL){
+	
 }
 
 Node::~Node(){
@@ -35,9 +35,9 @@ void Node::setNext(Node* next){
 }
 
 bool Node::hasNext(){
-	if(next==NULL){
-		return false;
-	}else{
+	if(next!=NULL){
 		return true;
+	}else{
+		return false;
 	}
 }
